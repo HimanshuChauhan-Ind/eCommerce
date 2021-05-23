@@ -1,6 +1,7 @@
 const express = require("express");
 const Product = require("../models/product");
 const router = express.Router();
+const isLoggedIn = require('../middlewares/isLoggedIn')
 
 //Landing Page
 router.get("/", (req, res) => {
@@ -57,5 +58,7 @@ router.delete('/products/:id', async(req,res)=>{
   await Product.findByIdAndDelete(req.params.id)
   res.redirect('/products')
 })
+
+
 
 module.exports = router;

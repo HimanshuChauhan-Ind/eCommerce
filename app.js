@@ -6,9 +6,13 @@ const mongoose = require("mongoose");
 const seedDB = require("./seed");
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const User = require('./models/user')
 
 //Non default requirement
 const productRoutes = require("./routes/product");
+const userRoutes = require("./routes/user")
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -30,6 +34,15 @@ mongoose
     console.log(err);
   });
 
+//User Auth
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new LocalStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
 // Configuring the session
 app.use(session({
   secret: 'new Secret',
@@ -40,6 +53,7 @@ app.use(flash())
 app.use((req,res,next)=>{
   res.locals.success = req.flash('success')
   res.locals.error = req.flash('error')
+  res.locals.currentUser = req.user
   next()
 })
 
@@ -49,6 +63,7 @@ app.use((req,res,next)=>{
 
 // Routes
 app.use(productRoutes);
+app.use(userRoutes)
 
 app.listen(3000, () => {
   console.log("Starting the Server on port 3000");
