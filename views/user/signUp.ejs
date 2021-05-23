@@ -1,0 +1,37 @@
+<%- include('../partials/header')%>
+<%- include('../partials/navbar')%>
+<div class="container-fluid">
+    <%-include('../partials/flash')%>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-6">
+            <form action="/register" method="post" class="validation" novalidate>
+                <h1>Please Sign Up</h1>
+                <label for="username" class="mt-3 mb-2">Username:</label>
+                <input type="text" id="inputEmail" class="form-control" name="username" required autofocus>
+                <label for="inputEmail" class="mt-3 mb-2">Email address:</label>
+                <input type="email" id="inputEmail" class="form-control" name="email" required>
+                <label for="phn" class="mt-3 mb-2">Contact No. :</label>
+                <input type="number" id="phn" class="form-control" name="phn" required>
+                <div class="form-check form-check-inline mt-3">
+                    <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="consumer" required>
+                    <label class="form-check-label" for="inlineRadio1">Consumer</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="role" id="inlineRadio2" value="seller" required>
+                    <label class="form-check-label" for="inlineRadio2">Seller</label>
+                </div>
+                <br>
+                <label for="inputPassword" class="mt-3 mb-2">Password :</label>
+                <input type="password" id="inputPassword" class="form-control" name="password" required>
+                <div class="checkbox mb-3">
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<%- include('../partials/validation')%>
+<%- include('../partials/footer')%>
