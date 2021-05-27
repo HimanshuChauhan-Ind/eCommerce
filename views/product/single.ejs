@@ -13,9 +13,12 @@
                 </div>
             </div>
         </div>
-        <form action="/products/<%=product._id%>?_method=DELETE" method="post">
-            <button class="btn btn-outline-danger">Delete</button>
-        </form>
+        <%if(currentUser.role === "seller"){%>
+            <form action="/products/<%=product._id%>?_method=DELETE" method="post">
+                <button class="btn btn-outline-danger">Delete</button>
+                <a href="/products/<%=product._id%>/edit" class="btn btn-outline-success">Edit</a>
+            </form>
+        <%}%>
         <div class="col-lg-6">
             <h1>Review Section</h1>
         </div>

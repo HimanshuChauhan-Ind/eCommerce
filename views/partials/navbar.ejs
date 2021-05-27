@@ -20,10 +20,29 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
       </ul>
+    </div>
+    <div class="navbar-nav ml-auto">
+      <%if(!currentUser){%>
+        <span class="navbar-text">
+          <button class="btn btn-outline-primary btn-sm"><a class="nav-link active" href="/signIn">SignIn</a></button>
+        </span>
+      <%}else{%>
+        <a href="#" class="nav-link active text-capitalize">Hello <%=currentUser.username%></a>
+        <%if(currentUser.role === "consumer"){%>
+            <a href="/user/<%=currentUser._id%>/cart" class="nav-link active"><i class="fas fa-shopping-cart"></i> 
+              <sup><span class="badge bg-danger"><%=currentUser.cart.length%></span></sup> 
+            </a>
+          <%}else{%>
+            <li class="nav-item">
+              <a class="nav-link" href="/products/new">Add Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/products/new">Your Products</a>
+            </li>
+          <%}%>
+        <a href="/logout" class="nav-link active">Logout</a>
+      <%}%>
     </div>
   </div>
 </nav>

@@ -34,10 +34,6 @@ mongoose
     console.log(err);
   });
 
-//User Auth
-app.use(passport.initialize())
-app.use(passport.session())
-
 passport.use(new LocalStrategy(User.authenticate()))
 
 passport.serializeUser(User.serializeUser())
@@ -49,6 +45,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+//User Auth
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(flash())
 app.use((req,res,next)=>{
   res.locals.success = req.flash('success')
