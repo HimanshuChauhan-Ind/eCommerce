@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Comment = require('./comments')
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  review:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
+  }]
 });
 
 const Product = new mongoose.model("Product", productSchema);

@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../models/product");
 const router = express.Router();
 const {isLoggedIn, sellerConfirm,consumerConfirm} = require('../middlewares/verifier')
+const Comment = require("../models/comments")
 
 //Landing Page
 router.get("/", (req, res) => {
@@ -34,10 +35,16 @@ router.post('/products',isLoggedIn,sellerConfirm, async(req,res)=>{
 })
 
 // Viewing an individual product
-router.get('/products/:id', async(req,res)=>{
-  const id = req.params.id
-  const product = await Product.findById(id)
-  res.render("product/single",{ product })
+router.get('/products/:id',isLoggedIn, async(req,res)=>{
+  try{
+    const id = req.params.id
+    const product = await Product.findById(id).populate('review')
+    res.render("product/single",{ product })
+  }
+  catch(err){
+    req.flash('error','Something went wrong.')
+    console.log(err)
+  }
 })
 
 // Getting the edit page
@@ -59,11 +66,32 @@ router.delete('/products/:id',isLoggedIn,sellerConfirm, async(req,res)=>{
   res.redirect('/products')
 })
 
+//Comment Section
+router.post('/products/:id/review',async(req,res)=>{
+  try{
+    const product = await Product.findById(req.params.id)
+    const review = new Comment({
+      ...req.body,
+      user:req.user.username
+    })
+
+    product.review.push( review )
+    await review.save()
+    await product.save()
+
+    req.flash('success',"Comment added Successfully");
+    res.redirect(`/products/${req.params.id}`)
+  }
+  catch(err){
+    req.flash('error','Cannot add Comment right now')
+    console.log(err)
+  }
+})
 
 // Wrong Route Page
-router.get('*',(req,res)=>{
-  res.render('product/wrong')
-})
+// router.get('*',(req,res)=>{
+//   res.render('product/wrong')
+// })
 
 
 module.exports = router;
