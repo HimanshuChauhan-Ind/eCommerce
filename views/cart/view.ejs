@@ -1,0 +1,46 @@
+<%- include('../partials/header')%>
+<%- include('../partials/navbar')%>
+
+<div class="container-fluid mt-5">
+    <% let sum = 0 %>
+    <div class="row">
+    <div class="col col-lg-8">
+      
+        <% for(let product of cartItems.cart){%>
+            <%sum += product.price%>
+            <div class="card mb-3" >
+                <div class="row g-0">
+                <div class="col-lg-3 col-md-3">
+                    <img src="<%=product.img%>" alt="Product image" class="img-thumbnail productImgCart">
+                  
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="card-body">
+                    <h5 class="card-title mt-3"><%=product.name%></h5>
+                    <br><br>
+                    <a href="/user/<%=product._id%>/delete">Delete</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <h5 class="card-title mt-3">&#8377; <%=product.price%></h5>
+                </div>
+                </div>
+            </div>
+        <%}%>
+    </div>
+    <div class="col col-lg-3">
+        <h1>Price total</h1>
+        <div class="card text-dark bg-light mb-3">
+            <div class="card-header">Subtotal( <%=cartItems.cart.length%> items ) : <%=sum%></div>
+            <div class="card-body">
+              <button class="btn btn-warning">Proceed To Buy</button>
+            </div>
+          </div>
+    </div>
+
+    </div>
+</div>
+
+<%- include('../partials/footer')%>
+
+

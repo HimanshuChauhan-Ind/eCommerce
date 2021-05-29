@@ -33,7 +33,7 @@ router.get('/signIn',(req,res)=>{
 router.post('/signIn',
 passport.authenticate('local',
         {
-            failureRedirect: '/login',
+            failureRedirect: '/signIn',
             failureFlash: true
         }
     ),(req,res)=>{

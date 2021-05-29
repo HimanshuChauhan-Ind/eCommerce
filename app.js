@@ -13,6 +13,7 @@ const User = require('./models/user')
 //Non default requirement
 const productRoutes = require("./routes/product");
 const userRoutes = require("./routes/user")
+const cartRoutes = require('./routes/cart')
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -63,7 +64,8 @@ app.use((req,res,next)=>{
 
 // Routes
 app.use(productRoutes);
-app.use(userRoutes)
+app.use(userRoutes);
+app.use(cartRoutes);
 
 app.listen(3000, () => {
   console.log("Starting the Server on port 3000");

@@ -16,6 +16,11 @@
                     <a href="/products/<%=product._id%>/edit" class="btn btn-outline-success">Edit</a>
                 </form>
             <%}%>
+            <%if(currentUser.role === "consumer"){%>
+                <form action="/products/<%=product._id%>/cartAdd" method="post">
+                    <button class="btn btn-outline-success"><i class="fas fa-cart-plus"></i></button>
+                </form>
+            <%}%>
         </div>
     </div>
     <div class="row mt-5 mb-5">
