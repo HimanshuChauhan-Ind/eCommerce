@@ -6,7 +6,7 @@ const Comment = require("../models/comments")
 
 //Landing Page
 router.get("/", (req, res) => {
-  res.send("Running Fine, Landing Page");
+  res.render('landing')
 });
 
 // All Products

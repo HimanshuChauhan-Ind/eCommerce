@@ -1,3 +1,32 @@
+.landingBlock{
+  text-align: center;
+  background-color: #fb3640;
+}
+
+.landingImg{
+  width: 100%;
+}
+
+.landingNav{
+  background-color: #fb3640;
+}
+
+.landingNav a{
+  text-decoration: none;
+  color: white;
+  font-size: large;
+  font-weight: bolder;
+  margin-left: 3rem;
+}
+.landingNav a :hover{
+  color:orange
+}
+
+.landingTextBlock{
+  margin-top: 15%;
+  line-height: 2;
+  color:white;
+}
 
 .productIndex{
   width: 100%;
