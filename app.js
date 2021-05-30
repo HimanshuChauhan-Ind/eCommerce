@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production'){
+  require('dotenv').config();
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -23,9 +27,11 @@ app.use(methodOverride("_method"));
 
 //Configuring the mongoose
 mongoose
-  .connect("mongodb://localhost:27017/shopApp", {
+  .connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify:false,
+    useCreateIndex:true
   })
   .then(() => {
     console.log("DB Connected");
@@ -67,6 +73,6 @@ app.use(productRoutes);
 app.use(userRoutes);
 app.use(cartRoutes);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Starting the Server on port 3000");
 });
