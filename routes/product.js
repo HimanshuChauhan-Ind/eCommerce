@@ -3,18 +3,23 @@ const Product = require("../models/product");
 const router = express.Router();
 const {isLoggedIn, sellerConfirm,consumerConfirm} = require('../middlewares/verifier')
 const Comment = require("../models/comments")
+const meanFinder = require('../middlewares/meanFinder')
 
 //Landing Page
 router.get("/", (req, res) => {
   res.render('landing')
 });
 
+//About Us
+router.get('/aboutus', (req,res)=>{
+  res.render('about')
+})
+
 // All Products
 router.get("/products", async (req, res) => {
   try {
-    const products = await Product.find({})
-    req.flash("success","Products Loaded Successfully")  
-    res.render("product/show", { products });
+    const products = await Product.find({}).populate('review')
+    res.render("product/show", { products })
    
   } catch (error) {
     console.log(error)
@@ -39,6 +44,13 @@ router.get('/products/:id',isLoggedIn, async(req,res)=>{
   try{
     const id = req.params.id
     const product = await Product.findById(id).populate('review')
+    // const allReview = product.review
+    // function meanFinder(allReview){
+    //   for(let review of allReview){
+    //     console.log(review.rating)
+    //   }
+    // }
+    // meanFinder(allReview)
     res.render("product/single",{ product })
   }
   catch(err){

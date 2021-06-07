@@ -26,7 +26,15 @@ router.post('/register', async(req,res)=>{
 
 //SignIn page
 router.get('/signIn',(req,res)=>{
-    res.render('user/signIn')
+    try{
+        res.render('user/signIn')
+        req.flash('success','Welcome!')
+    }
+    catch(e){
+        req.flash('error', 'Something went wrong, try again')
+        console.log(e)
+        res.redirect('/signIn')
+    }
 })
 
 //Signing in user

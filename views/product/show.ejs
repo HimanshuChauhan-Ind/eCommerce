@@ -12,7 +12,18 @@
           <img src="<%=product.img%>" class="card-img-top productIndex" alt="...">
           <div class="card-body">
             <h5 class="card-title"><%=product.name%></h5>
-            <h3>Star rating</h3>
+            
+            <!-- Star Rating -->
+            <%let reviewRating = 0%>
+            <%let meanRating = 0%>
+            <%for(let review of product.review){%>
+              <%reviewRating += review.rating%>
+              <%meanRating = reviewRating/product.review.length%>
+            <%}%>
+            <p class="starability-result" data-rating="<%=Math.floor(meanRating)%>">
+              Rated: <%=Math.floor(meanRating)%>
+            </p>
+
             <h3>&#8377;<%=product.price%></h3>
           </div>
         </div>
