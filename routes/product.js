@@ -3,7 +3,6 @@ const Product = require("../models/product");
 const router = express.Router();
 const {isLoggedIn, sellerConfirm,consumerConfirm} = require('../middlewares/verifier')
 const Comment = require("../models/comments")
-const meanFinder = require('../middlewares/meanFinder')
 
 //Landing Page
 router.get("/", (req, res) => {
